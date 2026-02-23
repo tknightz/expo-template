@@ -1,14 +1,16 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, Pressable, StyleSheet } from 'react-native';
 import { ExternalLink } from '@/components/external-link';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function TabTwoScreen() {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -22,12 +24,7 @@ export default function TabTwoScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}
-        >
+        <ThemedText type="title" className="font-rounded">
           Explore
         </ThemedText>
       </ThemedView>
@@ -79,6 +76,19 @@ export default function TabTwoScreen() {
           lets you inspect what the user&apos;s current color scheme is, and so
           you can adjust UI colors accordingly.
         </ThemedText>
+        <ThemedView className="mt-3 flex-row items-center justify-between rounded-xl border border-neutral-200 px-4 py-3 dark:border-neutral-800">
+          <ThemedText type="defaultSemiBold">Theme</ThemedText>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Toggle theme"
+            onPress={() => toggleColorScheme()}
+            className="rounded-full border border-neutral-200 bg-white px-3 py-1.5 dark:border-neutral-700 dark:bg-neutral-900"
+          >
+            <ThemedText className="text-sm">
+              {colorScheme === 'dark' ? 'Dark' : 'Light'}
+            </ThemedText>
+          </Pressable>
+        </ThemedView>
         <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
           <ThemedText type="link">Learn more</ThemedText>
         </ExternalLink>
@@ -90,7 +100,7 @@ export default function TabTwoScreen() {
             components/HelloWave.tsx
           </ThemedText>{' '}
           component uses the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
+          <ThemedText type="defaultSemiBold" className="font-mono">
             react-native-reanimated
           </ThemedText>{' '}
           library to create a waving hand animation.

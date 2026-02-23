@@ -5,7 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { useThemeColor } from '@/hooks/use-theme-color';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { cn } from '@/lib/cn';
 
 type ScreenHeaderProps = {
@@ -23,14 +24,14 @@ export function ScreenHeader({
   className,
   right,
 }: ScreenHeaderProps) {
-  const textColor = useThemeColor({}, 'text');
-  const backgroundColor = useThemeColor({}, 'background');
+  const { colorScheme } = useColorScheme();
+  const theme = colorScheme ?? 'light';
+  const textColor = Colors[theme].text;
 
   return (
     <SafeAreaView
       edges={['top']}
-      style={{ backgroundColor }}
-      className={cn(className)}
+      className={cn('bg-background dark:bg-background-dark', className)}
     >
       <ThemedView className="h-12 flex-row items-center gap-3 px-4">
         {showBack ? (

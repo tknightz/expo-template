@@ -18,7 +18,7 @@
     "test:e2e:build:android": "detox build --configuration android.emu.debug",
     "test:e2e:ios": "detox test --configuration ios.sim.debug",
     "test:e2e:android": "detox test --configuration android.emu.debug",
-    "prepare": "husky install",
+    "prepare": "husky",
     "postinstall": "patch-package"
   },
   "jest": {
